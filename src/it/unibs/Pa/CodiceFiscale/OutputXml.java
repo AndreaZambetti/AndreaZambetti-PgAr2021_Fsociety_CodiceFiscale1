@@ -15,7 +15,7 @@ import org.w3c.dom.Element;
 
 public class OutputXml {
 
-     try {
+     /*try {
 
         DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 
@@ -80,5 +80,5 @@ public class OutputXml {
     } catch (TransformerException tfe) {
         tfe.printStackTrace();
     }
-}
+}*/
 }
