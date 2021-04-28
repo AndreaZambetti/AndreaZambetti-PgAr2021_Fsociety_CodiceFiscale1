@@ -14,6 +14,11 @@ public class LettoreXML {
     public static ArrayList<String> CodiciFiscali = new ArrayList<String>();
     public static ArrayList<String> NomeComune = new ArrayList<String>();
     public static ArrayList<String> CodiceComune = new ArrayList<String>();
+    public static ArrayList<String> NomePersona = new ArrayList<String>();
+    public static ArrayList<String> CognomePersona = new ArrayList<String>();
+    public static ArrayList<String> SessoPersona = new ArrayList<String>();
+    public static ArrayList<String> NascitaPersona = new ArrayList<String>();
+    public static ArrayList<String> ComunePersona = new ArrayList<String>();
 
     public ArrayList<String> getCodiciFiscali() {
         return CodiciFiscali;
@@ -45,20 +50,20 @@ public class LettoreXML {
         while (xmlr.hasNext()) {
             switch (xmlr.getEventType()) {
                 case XMLStreamConstants.START_DOCUMENT:
-                    System.out.println("Start Read Doc " + FileXML);
+                    //System.out.println("Start Read Doc " + FileXML);
                     break;
                 case XMLStreamConstants.START_ELEMENT:
                     //System.out.println("Tag " + xmlr.getLocalName());
                     for (int i = 0; i < xmlr.getAttributeCount(); i++) {
-                        System.out.print(xmlr.getAttributeLocalName(i));
-                        System.out.println(xmlr.getAttributeValue(i));
+                        //System.out.print(xmlr.getAttributeLocalName(i));
+                        //System.out.println(xmlr.getAttributeValue(i));
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
                     //System.out.println("END-Tag" + xmlr.getLocalName());
                     break;
                 case XMLStreamConstants.COMMENT:
-                    System.out.println("//commento " + xmlr.getText());
+                    //System.out.println("//commento " + xmlr.getText());
                     break;
                 case XMLStreamConstants.CHARACTERS:
                     if (xmlr.getText().trim().length() > 0) {
@@ -94,5 +99,22 @@ public class LettoreXML {
 
         for (int i=0; i<NomeComune.size(); i++)
             System.out.println(i + ") " + NomeComune.get(i) + " -> " + CodiceComune.get(i));
+    }
+
+    public static void Leggi_Persone() throws XMLStreamException {
+        LettoreXML.LeggiXML(3);
+
+        for(int i=0; i<ArrayDiLettura.size(); i = i + 5){
+            NomePersona.add(ArrayDiLettura.get(i));
+            CognomePersona.add(ArrayDiLettura.get(i+1));
+            SessoPersona.add(ArrayDiLettura.get(i+2));
+            ComunePersona.add(ArrayDiLettura.get(i+3));
+            NascitaPersona.add(ArrayDiLettura.get(i+4));
+        }
+        ArrayDiLettura.clear();
+
+        for (int i=0; i<NomePersona.size(); i++)
+            System.out.println(i + ") " + NomePersona.get(i) + " " + CognomePersona.get(i) +
+                    " (" + SessoPersona.get(i) + ")  " + NascitaPersona.get(i) + "   " + ComunePersona.get(i));
     }
 }

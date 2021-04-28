@@ -10,7 +10,6 @@ public class Main {
 		//prova di chiamata del lettore
 		LettoreXML.Leggi_codiciFiscali();
 		LettoreXML.Leggi_comuni();
-
+		LettoreXML.Leggi_Persone();
 	}
-
 }
