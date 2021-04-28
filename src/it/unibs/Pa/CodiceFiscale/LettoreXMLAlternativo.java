@@ -9,7 +9,7 @@ import org.xml.sax.*;
 import org.w3c.dom.*;
 import java.io.IOException;
 
-public class InputDati2 {
+public class LettoreXMLAlternativo {
 
     private String xml = "codiciFiscali";
 
@@ -19,7 +19,7 @@ public class InputDati2 {
     private String role4 = null;
     private ArrayList<String> rolev;
 
-    public InputDati2(String role1, String role2, String role3, String role4, ArrayList<String> rolev){
+    public LettoreXMLAlternativo(String role1, String role2, String role3, String role4, ArrayList<String> rolev){
         this.role1 = role1;
         this.role2 = role2;
         this.role3 = role3;

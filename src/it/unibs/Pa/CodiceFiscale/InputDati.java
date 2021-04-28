@@ -1,57 +1,206 @@
 package it.unibs.Pa.CodiceFiscale;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamConstants;
-import java.io.FileInputStream;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
-public class InputDati {
+public class InputDati
+{
+	  private static Scanner lettore = creaScanner();
+	  
+	  private final static String ERRORE_FORMATO = "Attenzione: il dato inserito non e' nel formato corretto";
+	  private final static String ERRORE_MINIMO= "Attenzione: e' richiesto un valore maggiore o uguale a ";
+	  private final static String ERRORE_STRINGA_VUOTA= "Attenzione: non hai inserito alcun carattere";
+	  private final static String ERRORE_MASSIMO= "Attenzione: e' richiesto un valore minore o uguale a ";
+	  private final static String MESSAGGIO_AMMISSIBILI= "Attenzione: i caratteri ammissibili sono: ";
 
-    private void LeggiXML() throws XMLStreamException //XMLStreamException aggiunto per correggere errore
-                                                      //xmlr.hasNext all'interno del while
-    {
-        XMLInputFactory xmlif = null;
-        XMLStreamReader xmlr = null;
-        String codiciFiscali = "codiciFiscali.xml";
-        String comuni = "comuni.xml";
-        String inputPersone = "inputPersone.xml";
+	  private final static char RISPOSTA_SI='S';
+	  private final static char RISPOSTA_NO='N';
 
-        try {
-            xmlif = XMLInputFactory.newInstance();
-            xmlr = xmlif.createXMLStreamReader(inputPersone, new FileInputStream(inputPersone));
-        } catch (Exception e) {
-            System.out.println("Errore nell'inzializzazione del reader");
-            System.out.println(e.getMessage());
-        }
+	  
+ 
+	  private static Scanner creaScanner ()
+	  {
+	   Scanner creato = new Scanner(System.in);
+	   creato.useDelimiter(System.getProperty("line.separator"));
+	   return creato;
+	  }
+	  
+	  public static String leggiStringa (String messaggio)
+	  {
+		  System.out.print(messaggio);
+		  return lettore.next();
+	  }
+	  
+	  public static String leggiStringaNonVuota(String messaggio)
+	  {
+	   boolean finito=false;
+	   String lettura = null;
+	   do
+	   {
+		 lettura = leggiStringa(messaggio);
+		 lettura = lettura.trim();
+		 if (lettura.length() > 0)
+		  finito=true;
+		 else
+		  System.out.println(ERRORE_STRINGA_VUOTA);
+	   } while (!finito);
+	   
+	   return lettura;
+	  }
+	  
+	  public static char leggiChar (String messaggio)
+	  {
+	   boolean finito = false;
+	   char valoreLetto = '\0';
+	   do
+	    {
+	     System.out.print(messaggio);
+	     String lettura = lettore.next();
+	     if (lettura.length() > 0)
+	      {
+	       valoreLetto = lettura.charAt(0);
+	       finito = true;
+	      }
+	     else
+	      {
+	       System.out.println(ERRORE_STRINGA_VUOTA);
+	      }
+	    } while (!finito);
+	   return valoreLetto;
+	  }
+	  
+	  public static char leggiUpperChar (String messaggio, String ammissibili)
+	  {
+	   boolean finito = false;
+	   char valoreLetto = '\0';
+	   do
+	   {
+	    valoreLetto = leggiChar(messaggio);
+	    valoreLetto = Character.toUpperCase(valoreLetto);
+	    if (ammissibili.indexOf(valoreLetto) != -1)
+		 finito  = true;
+	    else
+	     System.out.println(MESSAGGIO_AMMISSIBILI + ammissibili);
+	   } while (!finito);
+	   return valoreLetto;
+	  }
+	  
+	  
+	  public static int leggiIntero (String messaggio)
+	  {
+	   boolean finito = false;
+	   int valoreLetto = 0;
+	   do
+	    {
+	     System.out.print(messaggio);
+	     try
+	      {
+	       valoreLetto = lettore.nextInt();
+	       finito = true;
+	      }
+	     catch (InputMismatchException e)
+	      {
+	       System.out.println(ERRORE_FORMATO);
+	       String daButtare = lettore.next();
+	      }
+	    } while (!finito);
+	   return valoreLetto;
+	  }
 
-        //l'istruzione nel while dava errore: add exception to method signatur
-        //Ho usato la correzione automatica del sistema cliccando sull'errore
-        while (xmlr.hasNext()) {
+	  public static int leggiInteroPositivo(String messaggio)
+	  {
+		  return leggiInteroConMinimo(messaggio,1);
+	  }
+	  
+	  public static int leggiInteroNonNegativo(String messaggio)
+	  {
+		  return leggiInteroConMinimo(messaggio,0);
+	  }
+	  
+	  
+	  public static int leggiInteroConMinimo(String messaggio, int minimo)
+	  {
+	   boolean finito = false;
+	   int valoreLetto = 0;
+	   do
+	    {
+	     valoreLetto = leggiIntero(messaggio);
+	     if (valoreLetto >= minimo)
+	      finito = true;
+	     else
+	      System.out.println(ERRORE_MINIMO + minimo);
+	    } while (!finito);
+	     
+	   return valoreLetto;
+	  }
 
-            switch (xmlr.getEventType()) {
-                case XMLStreamConstants.START_DOCUMENT:
-                    System.out.println("Start Read Doc " + inputPersone);
-                    break;
-                case XMLStreamConstants.START_ELEMENT:
-                    System.out.println("Tag " + xmlr.getLocalName());
-                    for (int i = 0; i < xmlr.getAttributeCount(); i++) {
-                        System.out.print(xmlr.getAttributeLocalName(i));
-                        System.out.println(xmlr.getAttributeValue(i));
-                    }
-                    break;
-                case XMLStreamConstants.END_ELEMENT:
-                    System.out.println("END-Tag" + xmlr.getLocalName());
-                    break;
-                case XMLStreamConstants.COMMENT:
-                    System.out.println("//commento " + xmlr.getText());
-                    break;
-                case XMLStreamConstants.CHARACTERS:
-                    if (xmlr.getText().trim().length() > 0)
-                        System.out.println("-> " + xmlr.getText());
-                    break;
-            }
-            xmlr.next();
-        }
-    }
+	  public static int leggiIntero(String messaggio, int minimo, int massimo)
+	  {
+	   boolean finito = false;
+	   int valoreLetto = 0;
+	   do
+	    {
+	     valoreLetto = leggiIntero(messaggio);
+	     if (valoreLetto >= minimo && valoreLetto<= massimo)
+	      finito = true;
+	     else
+	      if (valoreLetto < minimo)
+	         System.out.println(ERRORE_MINIMO + minimo);
+	      else
+	    	 System.out.println(ERRORE_MASSIMO + massimo); 
+	    } while (!finito);
+	     
+	   return valoreLetto;
+	  }
+
+	  
+	  public static double leggiDouble (String messaggio)
+	  {
+	   boolean finito = false;
+	   double valoreLetto = 0;
+	   do
+	    {
+	     System.out.print(messaggio);
+	     try
+	      {
+	       valoreLetto = lettore.nextDouble();
+	       finito = true;
+	      }
+	     catch (InputMismatchException e)
+	      {
+	       System.out.println(ERRORE_FORMATO);
+	       String daButtare = lettore.next();
+	      }
+	    } while (!finito);
+	   return valoreLetto;
+	  }
+	 
+	  public static double leggiDoubleConMinimo (String messaggio, double minimo)
+	  {
+	   boolean finito = false;
+	   double valoreLetto = 0;
+	   do
+	    {
+	     valoreLetto = leggiDouble(messaggio);
+	     if (valoreLetto >= minimo)
+	      finito = true;
+	     else
+	      System.out.println(ERRORE_MINIMO + minimo);
+	    } while (!finito);
+	     
+	   return valoreLetto;
+	  }
+
+	  
+	  public static boolean yesOrNo(String messaggio)
+	  {
+		  String mioMessaggio = messaggio + "("+RISPOSTA_SI+"/"+RISPOSTA_NO+")";
+		  char valoreLetto = leggiUpperChar(mioMessaggio,String.valueOf(RISPOSTA_SI)+String.valueOf(RISPOSTA_NO));
+		  
+		  if (valoreLetto == RISPOSTA_SI)
+			return true;
+		  else
+			return false;
+	  }
+
 }
