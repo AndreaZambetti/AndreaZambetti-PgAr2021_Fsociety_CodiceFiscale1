@@ -10,6 +10,21 @@ public class persona {
     private int dataNascita;
     private String codice;
 
+    // COSTRUTTORE PER ANDARE A CREARE DEGLI ARRAY LIST
+    public persona(int id, String nome, String cognome, String sesso, String comuneNascita, int dataNascita) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.sesso = sesso;
+        this.comuneNascita = comuneNascita;
+        this.dataNascita = dataNascita;
+    }
+
+    // costruttore per il  inserire il codice
+    public persona(String codice) {
+        this.codice = codice;
+    }
+
     public int getId() {
         return id;
     }
@@ -116,6 +131,17 @@ public class persona {
 
         return new String(codice);//System.out.println(codice);
         //return null;
+
+    }
+
+
+// METODO PER IL CONFRONTO ( APPENA SARA IMPLEMENTATO I
+    public void confrontoCodice(   String codiceCreato ){
+
+        if ( codice == codiceCreato ){
+            System.out.println(codiceCreato);
+        }else
+            System.out.println("ASSENTE");
 
     }
 }
