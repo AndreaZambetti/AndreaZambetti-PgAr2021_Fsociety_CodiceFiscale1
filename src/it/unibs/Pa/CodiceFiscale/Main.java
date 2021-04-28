@@ -8,8 +8,8 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		//prova di chiamata del lettore
-		LettoreXML.LeggiXML();
 		LettoreXML.Leggi_codiciFiscali();
+		LettoreXML.Leggi_comuni();
 
 	}
 
