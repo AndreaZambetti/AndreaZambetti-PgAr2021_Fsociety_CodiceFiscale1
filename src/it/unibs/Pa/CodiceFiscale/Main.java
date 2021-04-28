@@ -1,10 +1,6 @@
 package it.unibs.Pa.CodiceFiscale;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
-import java.io.FileInputStream;
 
 public class Main {
 
@@ -13,6 +9,7 @@ public class Main {
 
 		//prova di chiamata del lettore
 		LettoreXML.LeggiXML();
+		LettoreXML.Leggi_codiciFiscali();
 
 	}
 
