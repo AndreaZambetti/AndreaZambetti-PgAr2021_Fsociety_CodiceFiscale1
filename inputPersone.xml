@@ -6993,11 +6993,12 @@
         <comune_nascita>SIZIANO</comune_nascita>
         <data_nascita>1989-05-17</data_nascita>
     </persona>
+
     <persona id="999">
-        <nome>NIKITA</nome>
-        <cognome>BRANCALEONE</cognome>
+        <nome>ANDREA</nome>
+        <cognome>ZAMBETTI</cognome>
         <sesso>M</sesso>
-        <comune_nascita>BRESCIA</comune_nascita>
-        <data_nascita>1998-10-05</data_nascita>
+        <comune_nascita>SERIATE</comune_nascita>
+        <data_nascita>2001-08-11</data_nascita>
     </persona>
 </persone>

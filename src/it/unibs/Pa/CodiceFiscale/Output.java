@@ -2,6 +2,7 @@ package it.unibs.Pa.CodiceFiscale;
 
 import javax.xml.transform.*;
 import java.io.*;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -18,8 +19,38 @@ public class Output {
 
    public static final String OutputXml ="./codiceFiscale.xml";
 
-   public void stampa(ADriverPersona p1, String xml ){
-      Document dom;
+   public void stampa( ArrayList<Persona> p , String xml ) {
+      XMLOutputFactory xmlof = null;
+      XMLStreamWriter xmlw = null;
+      try {
+         xmlof = XMLOutputFactory.newInstance();
+         xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(filename), “utf-8”);
+         xmlw.writeStartDocument(“utf-8”, “1.0”);
+      } catch (Exception e) {
+         System.out.println("Errore nell'inizializzazione del writer:");
+         System.out.println(e.getMessage());
+      }
+
+   }
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     /* Document dom;
       Element e = null;
 
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -29,25 +60,45 @@ public class Output {
           dom = db.newDocument();
 
           // CREO IL ROOT ELEMENT
+          for( int i = 0 ; i< p.size() ; i++) {
+             Element rootEle = dom.createElement("persona");
 
-          Element rootEle = dom.createElement("persona");
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("nome");
+             e.appendChild(dom.createTextNode(p.get(i).getNome()));
+             rootEle.appendChild(e);
 
-          // CREAZIONE DEI ROOT
-          e = dom.createElement("nome");
-          e.appendChild(dom.createTextNode(p1.getNome()));
-          rootEle.appendChild(e);
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("cognome");
+             e.appendChild(dom.createTextNode(p.get(i).getCognome()));
+             rootEle.appendChild(e);
 
-          // CREAZIONE DEI ROOT
-          e = dom.createElement("cognome");
-          e.appendChild(dom.createTextNode(p1.getCognome()));
-          rootEle.appendChild(e);
 
-          // CREAZIONE DEI ROOT
-          e = dom.createElement("eta");
-          e.appendChild(dom.createTextNode(p1.getEta()));
-          rootEle.appendChild(e);
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("sesso");
+             e.appendChild(dom.createTextNode(p.get(i).getSesso()));
+             rootEle.appendChild(e);
 
-          dom.appendChild(rootEle);
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("comuneNascita");
+             e.appendChild(dom.createTextNode(p.get(i).getComuneNascita()));
+             rootEle.appendChild(e);
+
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("dataNascita");
+             e.appendChild(dom.createTextNode(p.get(i).getData_nascita()));
+             rootEle.appendChild(e);
+
+             // CREAZIONE DEI ROOT
+             e = dom.createElement("codiceFiscale");
+             e.appendChild(dom.createTextNode(p.get(i).getCodice_fiscale()));
+             rootEle.appendChild(e);
+
+
+             // OUTPUT CONFRONTO CODICE FISCALE
+
+             dom.appendChild(rootEle);
+       }
 
           try{
              Transformer tr = TransformerFactory.newInstance().newTransformer();
@@ -76,7 +127,7 @@ public class Output {
 
 
    }
-
+*/
 
       // PROVA OUTPUT
 
