@@ -95,8 +95,8 @@ public class LettoreXML {
         CodiciFiscali.addAll(ArrayDiLettura);
         ArrayDiLettura.clear();
 
-        for (int i=0; i<CodiciFiscali.size(); i++)
-            System.out.println(i + ") " + CodiciFiscali.get(i));
+        /*for (int i=0; i<CodiciFiscali.size(); i++)
+            System.out.println(i + ") " + CodiciFiscali.get(i));*/
     }
 
     public static void Leggi_comuni() throws XMLStreamException {
@@ -110,8 +110,8 @@ public class LettoreXML {
         }
         ArrayDiLettura.clear();
 
-        for (int i=0; i<NomeComune.size(); i++)
-            System.out.println(i + ") " + NomeComune.get(i) + " -> " + CodiceComune.get(i));
+        /*for (int i=0; i<NomeComune.size(); i++)
+            System.out.println(i + ") " + NomeComune.get(i) + " -> " + CodiceComune.get(i));*/
     }
 
     public static void Leggi_Persone() throws XMLStreamException {
@@ -126,8 +126,8 @@ public class LettoreXML {
         }
         ArrayDiLettura.clear();
 
-        for (int i=0; i<NomePersona.size(); i++)
+        /*for (int i=0; i<NomePersona.size(); i++)
             System.out.println(i + ") " + NomePersona.get(i) + " " + CognomePersona.get(i) +
-                    " (" + SessoPersona.get(i) + ")  " + NascitaPersona.get(i) + "   " + ComunePersona.get(i));
+                    " (" + SessoPersona.get(i) + ")  " + NascitaPersona.get(i) + "   " + ComunePersona.get(i));*/
     }
 }
