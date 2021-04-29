@@ -1,6 +1,6 @@
 package it.unibs.Pa.CodiceFiscale;
 
-public class persona {
+public class Persona {
 
     private int id;
     private String nome;
@@ -11,7 +11,7 @@ public class persona {
     private String codice;
 
     // COSTRUTTORE PER ANDARE A CREARE DEGLI ARRAY LIST
-    public persona(int id, String nome, String cognome, String sesso, String comuneNascita, int dataNascita) {
+    public Persona(int id, String nome, String cognome, String sesso, String comuneNascita, int dataNascita) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -21,7 +21,7 @@ public class persona {
     }
 
     // costruttore per il  inserire il codice
-    public persona(String codice) {
+    public Persona(String codice) {
         this.codice = codice;
     }
 
