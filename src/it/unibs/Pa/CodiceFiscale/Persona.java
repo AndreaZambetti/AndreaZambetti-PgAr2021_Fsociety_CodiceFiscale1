@@ -10,7 +10,19 @@
         private String sesso;
         private String comuneNascita;
         private String data_nascita;
+        private String codice;
 
+        public Persona( String nome, String cognome, String sesso, String comuneNascita, String data_nascita) {
+            this.nome = nome;
+            this.cognome = cognome;
+            this.sesso = sesso;
+            this.comuneNascita = comuneNascita;
+            this.data_nascita = data_nascita;
+        }
+
+        public Persona(String codice) {
+            this.codice = codice;
+        }
 
         public int getId() {
             return id;
