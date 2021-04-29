@@ -1,7 +1,7 @@
 package it.unibs.Pa.CodiceFiscale;
 
 
-public class ADriverOutput {
+/*public class ADriverOutput {
     public static void main(String[] args) {
         String nomeFile = "XMlFatto";
         ADriverPersona p1 = getPersona();
@@ -20,4 +20,4 @@ public class ADriverOutput {
         ADriverPersona p1 = new ADriverPersona(nome, cognome , data);
         return p1;
     }
-}
+}*/

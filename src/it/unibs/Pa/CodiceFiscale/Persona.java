@@ -2,6 +2,9 @@
     package it.unibs.Pa.CodiceFiscale;
 
 
+    import javax.xml.stream.XMLStreamException;
+    import java.util.ArrayList;
+
     public class Persona {
 
         private int id;
@@ -10,19 +13,16 @@
         private String sesso;
         private String comuneNascita;
         private String data_nascita;
-        private String codice;
+        private String codice_fiscale;
 
-        public Persona( String nome, String cognome, String sesso, String comuneNascita, String data_nascita) {
-            this.nome = nome;
-            this.cognome = cognome;
-            this.sesso = sesso;
-            this.comuneNascita = comuneNascita;
-            this.data_nascita = data_nascita;
+        public Persona() {
+
         }
 
-        public Persona(String codice) {
-            this.codice = codice;
+        public Persona(String codice_fiscale) {
+            this.codice_fiscale = codice_fiscale;
         }
+
 
         public int getId() {
             return id;
@@ -70,6 +70,14 @@
 
         public void setData_nascita(String data_nascita) {
             this.data_nascita = data_nascita;
+        }
+
+        public String getCodice_fiscale() {
+            return codice_fiscale;
+        }
+
+        public void setCodice_fiscale(String codice_fiscale) {
+            this.codice_fiscale = codice_fiscale;
         }
 
         @Override
@@ -279,10 +287,37 @@
 
 
 
+
+
+
+        public String creaParteComune(){
+            StringBuffer parteComune = new StringBuffer();
+            ArrayList<Comune> Lista_Comuni = new ArrayList<Comune>();
+            try {
+                Lista_Comuni = LettoreXML.leggi_Comune();
+            } catch (XMLStreamException e) {
+
+            }
+            for (int i=0; i<Lista_Comuni.size(); i++){
+                if (this.comuneNascita.equals(Lista_Comuni.get(i).getNome()))
+                    return Lista_Comuni.get(i).getCodice();
+            }
+            //operazione di default in caso il comune non sia indicato
+            return Lista_Comuni.get(0).getCodice();
+        }
+
+
+
+
+
+
+
+
+
         public String creaCodiceFiscaleFinale(){
 
             StringBuffer codiceFiscale = new StringBuffer();
-            codiceFiscale.append(creaParteCognome()+creaParteNome()+creaParteAnnoMese()+creaParteGiornoSesso());
+            codiceFiscale.append(creaParteCognome()+creaParteNome()+creaParteAnnoMese()+creaParteGiornoSesso()+ creaParteComune());
             String tutturututto = new String(codiceFiscale);
 
             int sommaDeiDispari= 0;

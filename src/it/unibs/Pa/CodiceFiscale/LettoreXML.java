@@ -9,41 +9,21 @@ import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
-/*
 public class LettoreXML {
 
-    public  ArrayList<String> ArrayDiLettura = new ArrayList<String>();
-    public  ArrayList<String> CodiciFiscali = new ArrayList<String>();
-    public  ArrayList<String> NomeComune = new ArrayList<String>();
-    public  ArrayList<String> CodiceComune = new ArrayList<String>();
-    public  ArrayList<String> NomePersona = new ArrayList<String>();
-    public  ArrayList<String> CognomePersona = new ArrayList<String>();
-    public ArrayList<String> SessoPersona = new ArrayList<String>();
-    public ArrayList<String> NascitaPersona = new ArrayList<String>();
-    public ArrayList<String> ComunePersona = new ArrayList<String>();
 
-    public ArrayList<String> getCodiciFiscali() {
-        return CodiciFiscali;
-    }
-
-    */
-/*XMLStreamException aggiunto per correggere errore
-      xmlr.hasNext all'interno del while
-
-      La seguente funzione legge uno dei file XML dopo che gli è stato indicato attraverso una selezione
-      In seguito salva tutte le informazioni in un ArrayList generico*//*
-
-    public  void LeggiXML(int selezione) throws XMLStreamException
-    {
+    /**
+     * crazione Persona
+     *
+     * @throws XMLStreamException
+     * @ArrayList
+     */
+    public static ArrayList leggi_inputPersone() throws XMLStreamException {
+        ArrayList<Persona> persone = new ArrayList<Persona>();
+        Persona pers = null;
         XMLInputFactory xmlif = null;
         XMLStreamReader xmlr = null;
-        String FileXML;
-        if (selezione == 1)
-            FileXML = "codiciFiscali.xml";
-        else if (selezione == 2)
-            FileXML = "comuni.xml";
-        else
-            FileXML = "inputPersone.xml";
+        String FileXML = "inputPersone.xml";
 
         try {
             xmlif = XMLInputFactory.newInstance();
@@ -53,97 +33,136 @@ public class LettoreXML {
             System.out.println(e.getMessage());
         }
 
-        */
-/*L'istruzione nel while dava errore: add exception to method signatur
-        Ho usato la correzione automatica del sistema cliccando sull'errore*//*
+        /*L'istruzione nel while dava errore: add exception to method signatur
+        Ho usato la correzione automatica del sistema cliccando sull'errore*/
 
         while (xmlr.hasNext()) {
             switch (xmlr.getEventType()) {
-                case XMLStreamConstants.START_DOCUMENT:
-                    //System.out.println("Start Read Doc " + FileXML);
-                    break;
                 case XMLStreamConstants.START_ELEMENT:
-                    //System.out.println("Tag " + xmlr.getLocalName());
-                    for (int i = 0; i < xmlr.getAttributeCount(); i++) {
-                        //System.out.print(xmlr.getAttributeLocalName(i));
-                        //System.out.println(xmlr.getAttributeValue(i));
+                    if (xmlr.getLocalName().equals("persona")) {
+                        pers = new Persona();
+                    } else if (xmlr.getLocalName().equals("nome")) {
+                        xmlr.next();
+                        pers.setNome(xmlr.getText());
+                    } else if (xmlr.getLocalName().equals("cognome")) {
+                        xmlr.next();
+                        pers.setCognome(xmlr.getText());
+                    } else if (xmlr.getLocalName().equals("sesso")) {
+                        xmlr.next();
+                        pers.setSesso(xmlr.getText());
+                    } else if (xmlr.getLocalName().equals("comune_nascita")) {
+                        xmlr.next();
+                        pers.setComuneNascita(xmlr.getText());
+                    } else if (xmlr.getLocalName().equals("data_nascita")) {
+                        xmlr.next();
+                        pers.setData_nascita(xmlr.getText());
                     }
                     break;
                 case XMLStreamConstants.END_ELEMENT:
-                    //System.out.println("END-Tag" + xmlr.getLocalName());
-                    break;
-                case XMLStreamConstants.COMMENT:
-                    //System.out.println("//commento " + xmlr.getText());
-                    break;
-                case XMLStreamConstants.CHARACTERS:
-                    if (xmlr.getText().trim().length() > 0) {
-                        //System.out.println("-> " + xmlr.getText());
-                        ArrayDiLettura.add(xmlr.getText()); //salva in un arraylist
+                    if (xmlr.getLocalName().equals("persona")) {
+                        persone.add(pers);
                     }
+                    break;
+
+                default:
                     break;
             }
             xmlr.next();
         }
+
+        return persone;
     }
 
-    */
-/*I seguenti metodi richiamano il metodo LettoreXML indicando il file di interesse attraverso il selettore.
-    * Dopo che LettoreXML ha completato la lettura i seguenti metodi utilizzano l'ArrayDiLettura che è stata compilata
-    * per trasferire le informazioni in altre ArrayList create appositamente per questo, esempio:
-    * Nel caso di comuni.xml l'ArrayDiLettura crea 16184 celle che contengono in modo alternato il nome di un comune
-    * e il codice di un comune. In seguito il metodo Leggi_comuni separa queste informazioni in due rispettivi Array:
-    * NomeComune e CodiceComune i quali avranno 8092 celle contenti nome e codice di un comune, legati attraverso
-    * l'indice degli ArrayList.
-    * Processo simile è usato per la lettura di inputPersone.xml.*//*
+    // CREAZIONE COMUNE
 
-    public void Leggi_codiciFiscali() throws XMLStreamException {
-        LettoreXML.LeggiXML(1);
+    public static ArrayList leggi_Comune() throws XMLStreamException {
 
-        CodiciFiscali.addAll(ArrayDiLettura);
-        ArrayDiLettura.clear();
+        Comune com = null;
+        ArrayList<Comune> comune = new ArrayList<Comune>();
+        XMLInputFactory xmlif = null;
+        XMLStreamReader xmlr = null;
+        String FileXML = "comuni.xml";
 
-        */
-/*for (int i=0; i<CodiciFiscali.size(); i++)
-            System.out.println(i + ") " + CodiciFiscali.get(i));*//*
-
-    }
-
-    public  void Leggi_comuni() throws XMLStreamException {
-        LettoreXML.LeggiXML(2);
-
-        for(int i=0; i<ArrayDiLettura.size(); i++){
-            if (i%2==0)
-                NomeComune.add(ArrayDiLettura.get(i));
-            if (i%2==1)
-                CodiceComune.add(ArrayDiLettura.get(i));
+        try {
+            xmlif = XMLInputFactory.newInstance();
+            xmlr = xmlif.createXMLStreamReader(FileXML, new FileInputStream(FileXML));
+        } catch (Exception e) {
+            System.out.println("Errore nell'inzializzazione del reader");
+            System.out.println(e.getMessage());
         }
-        ArrayDiLettura.clear();
 
-        */
-/*for (int i=0; i<NomeComune.size(); i++)
-            System.out.println(i + ") " + NomeComune.get(i) + " -> " + CodiceComune.get(i));*//*
+        /*L'istruzione nel while dava errore: add exception to method signatur
+        Ho usato la correzione automatica del sistema cliccando sull'errore*/
 
-    }
+        while (xmlr.hasNext()) {
+            switch (xmlr.getEventType()) {
+                case XMLStreamConstants.START_ELEMENT:
+                    if (xmlr.getLocalName().equals("comune")) {
+                        com = new Comune();
+                    } else if (xmlr.getLocalName().equals("nome")) {
+                        xmlr.next();
+                        com.setNome(xmlr.getText());
+                    } else if (xmlr.getLocalName().equals("codice")) {
+                        xmlr.next();
+                        com.setCodice(xmlr.getText());
 
-    public void Leggi_Persone() throws XMLStreamException {
-        LettoreXML.LeggiXML(3);
-
-        for(int i=0; i<ArrayDiLettura.size(); i = i + 5){
-            NomePersona.add(ArrayDiLettura.get(i));
-            CognomePersona.add(ArrayDiLettura.get(i+1));
-            SessoPersona.add(ArrayDiLettura.get(i+2));
-            ComunePersona.add(ArrayDiLettura.get(i+3));
-            NascitaPersona.add(ArrayDiLettura.get(i+4));
-
-
-
+                    }
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    if (xmlr.getLocalName().equals("comune")) {
+                        comune.add(com);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            xmlr.next();
         }
-        ArrayDiLettura.clear();
-
-        */
-/*for (int i=0; i<NomePersona.size(); i++)
-            System.out.println(i + ") " + NomePersona.get(i) + " " + CognomePersona.get(i) +
-                    " (" + SessoPersona.get(i) + ")  " + NascitaPersona.get(i) + "   " + ComunePersona.get(i));*//*
-
+        return comune;
     }
-}*/
+
+    /**
+     * @r
+     * @ return codiceFiscale
+     */
+
+    public static ArrayList leggiCodiceFiscale() throws XMLStreamException {
+        ArrayList<String> codiceFiscale = new ArrayList<String>();
+        String codice = null;
+        XMLInputFactory xmlif = null;
+        XMLStreamReader xmlr = null;
+        String FileXML = "codiciFiscali.xml";
+
+        try {
+            xmlif = XMLInputFactory.newInstance();
+            xmlr = xmlif.createXMLStreamReader(FileXML, new FileInputStream(FileXML));
+        } catch (Exception e) {
+            System.out.println("Errore nell'inzializzazione del reader");
+            System.out.println(e.getMessage());
+        }
+
+
+        while (xmlr.hasNext()) {
+            switch (xmlr.getEventType()) {
+                case XMLStreamConstants.START_ELEMENT:
+                    if (xmlr.getLocalName().equals("codice")) {
+                        codice = new String();
+                        xmlr.next();
+                        codice = xmlr.getText();
+                    }
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    if (xmlr.getLocalName().equals("codice")) {
+                        codiceFiscale.add(codice);
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+            xmlr.next();
+        }
+
+        return codiceFiscale;
+    }
+}
