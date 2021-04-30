@@ -8,7 +8,7 @@ public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
 	private static void creaCodiciPersone(ArrayList<Persona> lista_persone, ArrayList<String> lista_codici) throws XMLStreamException {
-		for ( int i = 0 ; i < lista_persone.size(); i++){
+		for ( int i = 0; i < lista_persone.size(); i++){
 			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale(lista_codici);
 			lista_persone.get(i).setCodice_fiscale(codiceFiscale);
 		}
@@ -19,14 +19,26 @@ public class Main {
 
 
 
-        // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
+        //LETTURA FILE XML DEI CODICI E DELLE PERSONE
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
 		ArrayList<String> lista_codici = new ArrayList<String>();
 		lista_codici = LettoreXML.leggiCodiciFiscali();
+
+		ArrayList<String> lista_codici_errati = new ArrayList<String>();
+		Persona lista_temp = new Persona();
+		for (int i=0; i<lista_codici.size(); i++){
+			//trasferimento dei codici NON VALIDI nell'apposita List
+			// e rimozione dalla List dei codici per il confronto
+			if (!lista_temp.VerificaCodice(lista_codici.get(i))){
+				lista_codici_errati.add(lista_codici.get(i));
+				lista_codici.remove(i);
+			}
+		}
+
 		creaCodiciPersone(lista_persone, lista_codici);
 
-		/*Persona lista_codice = new Persona();
+		/*Persona lista_temp = new Persona();
 
 
 
