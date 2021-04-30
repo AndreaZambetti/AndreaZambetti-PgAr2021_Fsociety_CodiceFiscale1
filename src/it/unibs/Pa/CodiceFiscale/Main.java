@@ -1,6 +1,7 @@
 package it.unibs.Pa.CodiceFiscale;
 
 import javax.xml.stream.XMLStreamException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Main {
@@ -15,13 +16,7 @@ public class Main {
 
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
-
-		ArrayList<Persona> lista_codici = new ArrayList<Persona>();
-		lista_codici = LettoreXML.leggiCodiciFiscali();
-		for (int i=0; i<lista_codici.size(); i++){
-			//if (lista_codici.get(i).)
-		}
-
+		ArrayList<String> codiceDaLeggere = new ArrayList<String>();
 
 
 
@@ -31,6 +26,20 @@ public class Main {
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
 		creaCodiciPersone(lista_persone);
+
+
+
+		codiceDaLeggere = LettoreXML.leggiCodiciFiscali();
+		for (int i=0; i<codiceDaLeggere.size(); i++){
+			for( int j =0 ; j< lista_persone.size();j++)
+			if () {
+				System.out.println(" il  codice c'e");
+			}else{
+				System.out.println("non c'è" + i);
+			}
+		}
+
+
 
 
 		/*ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
