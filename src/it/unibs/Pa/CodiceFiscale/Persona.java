@@ -621,7 +621,7 @@
 
 
         //creaCodiceFiscaleFinale
-        public String creaCodiceFiscaleFinale() {
+        public String creaCodiceFiscaleFinale(ArrayList<String> lista_codici) {
             char carattere_controllo;
 
             StringBuffer codiceFiscale = new StringBuffer();
@@ -949,14 +949,9 @@
             }*/
 
             String Codice = new String(codiceFiscale);
-            ArrayList<String> lista_Codici = new ArrayList<String>();
-            try {
-                lista_Codici = LettoreXML.leggiCodiciFiscali();
-            } catch (XMLStreamException e) {
-                e.printStackTrace();
-            }
-            for (int i=0; i<lista_Codici.size(); i++) {
-                if (Codice.equals(lista_Codici.get(i))) {
+
+            for (int i=0; i<lista_codici.size(); i++) {
+                if (Codice.equals(lista_codici.get(i))) {
                     return new String(codiceFiscale);
                 }
             }

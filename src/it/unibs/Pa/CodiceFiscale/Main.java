@@ -7,52 +7,31 @@ import java.util.ArrayList;
 public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
-	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) {
+	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) throws XMLStreamException {
+		ArrayList<String> lista_codici = new ArrayList<String>();
+		lista_codici = LettoreXML.leggiCodiciFiscali();
 		for ( int i = 0 ; i < lista_persone.size(); i++){
-			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale();
+			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale(lista_codici);
 			lista_persone.get(i).setCodice_fiscale(codiceFiscale);
 		}
 	}
 
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
-		ArrayList<String> codiceDaLeggere = new ArrayList<String>();
 
 
 
-     // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
-
-
-
-
-
+        // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
 		creaCodiciPersone(lista_persone);
 
-		Persona lista_codice = new Persona();
-
-
-		codiceDaLeggere = LettoreXML.leggiCodiciFiscali();
-		int nonCe = 0;
-		int ce = 0;
-		for (int i=0; i<codiceDaLeggere.size(); i++){
-
-			if (lista_codice.VerificaCodice(codiceDaLeggere.get(i))) {
-
-			}else{
-
-
-			}
-
-
-		}
-
+		/*Persona lista_codice = new Persona();
 
 
 
 		ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
-		lista_comuni = LettoreXML.leggi_Comune();
+		lista_comuni = LettoreXML.leggi_Comune();*/
 
 		Output out = new Output();
 		out.stampa(lista_persone,"fine");
