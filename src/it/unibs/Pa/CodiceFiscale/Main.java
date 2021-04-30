@@ -6,19 +6,12 @@ import java.util.ArrayList;
 public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
-	private static void creaCodiciPersone() throws XMLStreamException {
-
-
-		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
-		lista_persone = LettoreXML.leggi_inputPersone();
-
-
+	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) throws XMLStreamException {
 
 	for ( int i = 0 ; i < lista_persone.size(); i++){
 
 		String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale();
 		lista_persone.get(i).setCodice_fiscale(codiceFiscale);
-		System.out.println(codiceFiscale);
 
 	}
 
@@ -26,6 +19,8 @@ public class Main {
 
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
+
+
 
 
 
@@ -43,17 +38,17 @@ public class Main {
 		lista_comuni = LettoreXML.leggi_Comune();
 
 
-		creaCodiciPersone();
+		creaCodiciPersone( lista_persone);
 
 
 
-/*
+
 			Output out = new Output();
 
 
 
 
-			out.stampa(lista_persone,"fine");*/
+			out.stampa(lista_persone,"fine");
 
 		}
 

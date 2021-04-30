@@ -1,5 +1,7 @@
 package it.unibs.Pa.CodiceFiscale;
 
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -20,16 +22,63 @@ public class Output {
    public static final String OutputXml ="./codiceFiscale.xml";
 
    public void stampa( ArrayList<Persona> p , String xml ) {
+
       XMLOutputFactory xmlof = null;
       XMLStreamWriter xmlw = null;
       try {
          xmlof = XMLOutputFactory.newInstance();
-         xmlw = xmlof.createXMLStreamWriter(new FileOutputStream(filename), “utf-8”);
-         xmlw.writeStartDocument(“utf-8”, “1.0”);
+         xmlw = xmlof.createXMLStreamWriter(new FileOutputStream("fileOutput.xml"), "utf-8");
+         ((XMLStreamWriter) xmlw).writeStartDocument("utf-8", "1.0");
       } catch (Exception e) {
          System.out.println("Errore nell'inizializzazione del writer:");
          System.out.println(e.getMessage());
       }
+    // esempio di dati da scrivere
+      try { // blocco try per raccogliere eccezioni
+         xmlw.writeStartElement("programmaArnaldo"); // scrittura del tag radice <programmaArnaldo>
+         xmlw.writeComment("INIZIO LISTA"); // scrittura di un commento
+         for (int i = 0; i < p.size(); i++) {
+            xmlw.writeStartElement("persona"); // scrittura del tag autore...
+            xmlw.writeAttribute("id", Integer.toString(i)); // ...con attributo id...
+            // inserimento nome
+            xmlw.writeStartElement("nome");
+            xmlw.writeCharacters(p.get(i).getNome());
+            xmlw.writeEndElement();
+            // inserimento cognome
+            xmlw.writeStartElement("cognome");
+            xmlw.writeCharacters(p.get(i).getCognome());
+            xmlw.writeEndElement();
+
+            // inserimento sesso
+            xmlw.writeStartElement("sesso");
+            xmlw.writeCharacters(p.get(i).getSesso());
+            xmlw.writeEndElement();
+
+            // inserimento comune di nascita
+
+            xmlw.writeStartElement("comune_nascita");
+            xmlw.writeCharacters(p.get(i).getComuneNascita());
+            xmlw.writeEndElement();
+
+            // inserimento data nascita
+            xmlw.writeStartElement("data_nascita");
+            xmlw.writeCharacters(p.get(i).getData_nascita());
+            xmlw.writeEndElement();
+
+
+            // inserimento codice fiscale
+            xmlw.writeStartElement("codice_fiscale");
+            xmlw.writeCharacters(p.get(i).getCodice_fiscale());
+            xmlw.writeEndElement();
+
+            xmlw.writeEndElement(); // chiusura di </Persona>
+         }
+         xmlw.writeEndElement(); // chiusura di </programmaArnaldo>
+         xmlw.writeEndDocument(); // scrittura della fine del documento
+         xmlw.flush(); // svuota il buffer e procede alla scrittura
+         xmlw.close(); // chiusura del documento e delle risorse impiegate
+      } catch (Exception e) { // se c’è un errore viene eseguita questa parte
+         System.out.println("Errore nella scrittura");
 
    }
    }
