@@ -7,9 +7,7 @@ import java.util.ArrayList;
 public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
-	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) throws XMLStreamException {
-		ArrayList<String> lista_codici = new ArrayList<String>();
-		lista_codici = LettoreXML.leggiCodiciFiscali();
+	private static void creaCodiciPersone(ArrayList<Persona> lista_persone, ArrayList<String> lista_codici) throws XMLStreamException {
 		for ( int i = 0 ; i < lista_persone.size(); i++){
 			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale(lista_codici);
 			lista_persone.get(i).setCodice_fiscale(codiceFiscale);
@@ -24,7 +22,9 @@ public class Main {
         // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
-		creaCodiciPersone(lista_persone);
+		ArrayList<String> lista_codici = new ArrayList<String>();
+		lista_codici = LettoreXML.leggiCodiciFiscali();
+		creaCodiciPersone(lista_persone, lista_codici);
 
 		/*Persona lista_codice = new Persona();
 
