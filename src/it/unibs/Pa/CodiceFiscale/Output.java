@@ -21,7 +21,7 @@ public class Output {
 
    public static final String OutputXml ="./codiceFiscale.xml";
 
-   public void stampa( ArrayList<Persona> p , String xml ) {
+   public void stampa( ArrayList<Persona> p , ArrayList<String> codiciSpagliati, ArrayList<String> codiciErrati) {
 
       XMLOutputFactory xmlof = null;
       XMLStreamWriter xmlw = null;
@@ -73,12 +73,46 @@ public class Output {
 
             xmlw.writeEndElement(); // chiusura di </Persona>
          }
+
+         // CREAZIONE ERRATI
+         xmlw.writeStartElement("errati"); // scrittura del tag autore...
+         for (int i = 0; i < codiciErrati.size(); i++) {
+
+            // inserimento codice
+            xmlw.writeStartElement("codice");
+            xmlw.writeCharacters(codiciSpagliati.get(i));
+            xmlw.writeEndElement();
+
+
+         } xmlw.writeEndElement(); // chiusura di </errati>
+
+
+
+         // STAMPA SPAGLIATI
+          xmlw.writeStartElement("spaliati"); // scrittura del tag autore...
+         for (int i = 0; i < codiciSpagliati.size(); i++) {
+
+            // inserimento codice
+            xmlw.writeStartElement("codice");
+            xmlw.writeCharacters(codiciSpagliati.get(i));
+            xmlw.writeEndElement();
+
+
+         }xmlw.writeEndElement(); // chiusura di </codie>
+
+
+
+
+
+
+
          xmlw.writeEndElement(); // chiusura di </programmaArnaldo>
          xmlw.writeEndDocument(); // scrittura della fine del documento
          xmlw.flush(); // svuota il buffer e procede alla scrittura
          xmlw.close(); // chiusura del documento e delle risorse impiegate
       } catch (Exception e) { // se c’è un errore viene eseguita questa parte
          System.out.println("Errore nella scrittura");
+         e.printStackTrace();
 
    }
    }
