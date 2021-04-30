@@ -1,33 +1,26 @@
 package it.unibs.Pa.CodiceFiscale;
 
-import org.w3c.dom.ls.LSException;
-
 import javax.xml.stream.XMLStreamException;
 import java.util.ArrayList;
 
 public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
-	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) throws XMLStreamException {
+	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) {
 		for ( int i = 0 ; i < lista_persone.size(); i++){
 			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale();
 			lista_persone.get(i).setCodice_fiscale(codiceFiscale);
 		}
 	}
 
-	private static ArrayList<Codice> VerificaCodiciValidi() throws XMLStreamException {
-		ArrayList<Codice> Lista_Codici = new ArrayList<Codice>();
-		Lista_Codici = LettoreXML.leggiCodiciFiscali();
-		for (int i=0; i<Lista_Codici.size(); i++){
-			Lista_Codici.get(i).setValido("");
-		}
-		return Lista_Codici;
-	}
-
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
 
-
+		ArrayList<Persona> lista_codici = new ArrayList<Persona>();
+		lista_codici = LettoreXML.leggiCodiciFiscali();
+		for (int i=0; i<lista_codici.size(); i++){
+			//if (lista_codici.get(i).)
+		}
 
 
 

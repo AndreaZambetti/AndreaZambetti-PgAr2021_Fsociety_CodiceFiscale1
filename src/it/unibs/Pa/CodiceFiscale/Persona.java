@@ -3,7 +3,6 @@
 
 
     import javax.xml.stream.XMLStreamException;
-    import java.io.InvalidObjectException;
     import java.util.ArrayList;
 
     public class Persona {
@@ -286,36 +285,10 @@
             return new String(parteGiornoSesso);
         }
 
-
-
-        public String creaParteComune(){
-            StringBuffer parteComune = new StringBuffer();
-            ArrayList<Comune> Lista_Comuni = new ArrayList<Comune>();
-            try {
-                Lista_Comuni = LettoreXML.leggi_Comune();
-            } catch (XMLStreamException e) {
-
-            }
-            for (int i=0; i<Lista_Comuni.size(); i++){
-                if (this.comuneNascita.equals(Lista_Comuni.get(i).getNome())){
-                    return Lista_Comuni.get(i).getCodice();
-                }
-            }
-            //operazione di default in caso il comune non sia indicato
-            return Lista_Comuni.get(0).getCodice();
-        }
-
-
-
-        public String creaCodiceFiscaleFinale() {
-
-            StringBuffer codiceFiscale = new StringBuffer();
-            codiceFiscale.append(creaParteCognome()+creaParteNome()+creaParteAnnoMese()+creaParteGiornoSesso()+ creaParteComune());
-            String tutturututto = new String(codiceFiscale);
-
+        public char creaCarattereControllo(String radice){
             int sommaDeiDispari= 0;
-            for (int i=0; i<tutturututto.length(); i+=2){
-                switch (tutturututto.charAt(i)) {
+            for (int i=0; i<radice.length(); i+=2){
+                switch (radice.charAt(i)) {
                     case '0':
                         sommaDeiDispari += 1;
                         break;
@@ -430,8 +403,354 @@
 
 
             int sommaDeiPari= 0;
-            for (int i=1; i<tutturututto.length(); i+=2) {
-                switch (tutturututto.charAt(i)) {
+            for (int i=1; i<radice.length(); i+=2) {
+                switch (radice.charAt(i)) {
+                    case '0':
+                        sommaDeiPari += 0;
+                        break;
+                    case '1':
+                        sommaDeiPari += 1;
+                        break;
+                    case '2':
+                        sommaDeiPari += 2;
+                        break;
+                    case '3':
+                        sommaDeiPari += 3;
+                        break;
+                    case '4':
+                        sommaDeiPari += 4;
+                        break;
+                    case '5':
+                        sommaDeiPari += 5;
+                        break;
+                    case '6':
+                        sommaDeiPari += 6;
+                        break;
+                    case '7':
+                        sommaDeiPari += 7;
+                        break;
+                    case '8':
+                        sommaDeiPari += 8;
+                        break;
+                    case '9':
+                        sommaDeiPari += 9;
+                        break;
+                    case 'A':
+                        sommaDeiPari += 0;
+                        break;
+                    case 'B':
+                        sommaDeiPari += 1;
+                        break;
+                    case 'C':
+                        sommaDeiPari += 2;
+                        break;
+                    case 'D':
+                        sommaDeiPari += 3;
+                        break;
+                    case 'E':
+                        sommaDeiPari += 4;
+                        break;
+                    case 'F':
+                        sommaDeiPari += 5;
+                        break;
+                    case 'G':
+                        sommaDeiPari += 6;
+                        break;
+                    case 'H':
+                        sommaDeiPari += 7;
+                        break;
+                    case 'I':
+                        sommaDeiPari += 8;
+                        break;
+                    case 'J':
+                        sommaDeiPari += 9;
+                        break;
+                    case 'K':
+                        sommaDeiPari += 10;
+                        break;
+                    case 'L':
+                        sommaDeiPari += 11;
+                        break;
+                    case 'M':
+                        sommaDeiPari += 12;
+                        break;
+                    case 'N':
+                        sommaDeiPari += 13;
+                        break;
+                    case 'O':
+                        sommaDeiPari += 14;
+                        break;
+                    case 'P':
+                        sommaDeiPari += 15;
+                        break;
+                    case 'Q':
+                        sommaDeiPari += 16;
+                        break;
+                    case 'R':
+                        sommaDeiPari += 17;
+                        break;
+                    case 'S':
+                        sommaDeiPari += 18;
+                        break;
+                    case 'T':
+                        sommaDeiPari += 19;
+                        break;
+                    case 'U':
+                        sommaDeiPari += 20;
+                        break;
+                    case 'V':
+                        sommaDeiPari += 21;
+                        break;
+                    case 'W':
+                        sommaDeiPari += 22;
+                        break;
+                    case 'X':
+                        sommaDeiPari += 23;
+                        break;
+                    case 'Y':
+                        sommaDeiPari += 24;
+                        break;
+                    case 'Z':
+                        sommaDeiPari += 25;
+                        break;
+
+                }
+            }
+
+            int sommaTotale = sommaDeiDispari+sommaDeiPari;
+            int resto = sommaTotale % 26;
+
+            switch (resto){
+                case 0:
+                    return 'A';
+
+                case 1:
+                    return 'B';
+
+                case 2:
+                    return 'C';
+
+                case 3:
+                    return 'D';
+
+                case 4:
+                    return 'E';
+
+                case 5:
+                    return 'F';
+
+                case 6:
+                    return 'G';
+
+                case 7:
+                    return 'H';
+
+                case 8:
+                    return 'I';
+
+                case 9:
+                    return 'J';
+
+                case 10:
+                    return 'K';
+
+                case 11:
+                    return 'L';
+
+                case 12:
+                    return 'M';
+
+                case 13:
+                    return 'N';
+
+                case 14:
+                    return 'O';
+
+                case 15:
+                    return 'P';
+
+                case 16:
+                    return 'Q';
+
+                case 17:
+                    return 'R';
+
+                case 18:
+                    return 'S';
+
+                case 19:
+                    return 'T';
+
+                case 20:
+                    return 'U';
+
+                case 21:
+                    return 'V';
+
+                case 22:
+                    return 'W';
+
+                case 23:
+                    return 'X';
+
+                case 24:
+                    return 'Y';
+
+                default:
+                    return 'Z';
+
+            }
+        }
+
+        public String creaParteComune(){
+            StringBuffer parteComune = new StringBuffer();
+            ArrayList<Comune> Lista_Comuni = new ArrayList<Comune>();
+            try {
+                Lista_Comuni = LettoreXML.leggi_Comune();
+            } catch (XMLStreamException e) {
+
+            }
+            for (int i=0; i<Lista_Comuni.size(); i++){
+                if (this.comuneNascita.equals(Lista_Comuni.get(i).getNome())){
+                    return Lista_Comuni.get(i).getCodice();
+                }
+            }
+            //operazione di default in caso il comune non sia indicato
+            return Lista_Comuni.get(0).getCodice();
+        }
+
+
+        //creaCodiceFiscaleFinale
+        public String creaCodiceFiscaleFinale() {
+            char carattere_controllo;
+
+            StringBuffer codiceFiscale = new StringBuffer();
+            codiceFiscale.append(creaParteCognome()+creaParteNome()+creaParteAnnoMese()+creaParteGiornoSesso()+ creaParteComune());
+            String radice = new String(codiceFiscale);
+
+            carattere_controllo = creaCarattereControllo(radice);
+
+            codiceFiscale.append(carattere_controllo);
+
+            /*int sommaDeiDispari= 0;
+            for (int i=0; i<radice.length(); i+=2){
+                switch (radice.charAt(i)) {
+                    case '0':
+                        sommaDeiDispari += 1;
+                        break;
+                    case '1':
+                        sommaDeiDispari += 0;
+                        break;
+                    case '2':
+                        sommaDeiDispari += 5;
+                        break;
+                    case '3':
+                        sommaDeiDispari += 7;
+                        break;
+                    case '4':
+                        sommaDeiDispari += 9;
+                        break;
+                    case '5':
+                        sommaDeiDispari += 13;
+                        break;
+                    case '6':
+                        sommaDeiDispari += 15;
+                        break;
+                    case '7':
+                        sommaDeiDispari += 17;
+                        break;
+                    case '8':
+                        sommaDeiDispari += 19;
+                        break;
+                    case '9':
+                        sommaDeiDispari += 21;
+                        break;
+                    case 'A':
+                        sommaDeiDispari += 1;
+                        break;
+                    case 'B':
+                        sommaDeiDispari += 0;
+                        break;
+                    case 'C':
+                        sommaDeiDispari += 5;
+                        break;
+                    case 'D':
+                        sommaDeiDispari += 7;
+                        break;
+                    case 'E':
+                        sommaDeiDispari += 9;
+                        break;
+                    case 'F':
+                        sommaDeiDispari += 13;
+                        break;
+                    case 'G':
+                        sommaDeiDispari += 15;
+                        break;
+                    case 'H':
+                        sommaDeiDispari += 17;
+                        break;
+                    case 'I':
+                        sommaDeiDispari += 19;
+                        break;
+                    case 'J':
+                        sommaDeiDispari += 21;
+                        break;
+                    case 'K':
+                        sommaDeiDispari += 2;
+                        break;
+                    case 'L':
+                        sommaDeiDispari += 4;
+                        break;
+                    case 'M':
+                        sommaDeiDispari += 18;
+                        break;
+                    case 'N':
+                        sommaDeiDispari += 20;
+                        break;
+                    case 'O':
+                        sommaDeiDispari += 11;
+                        break;
+                    case 'P':
+                        sommaDeiDispari += 3;
+                        break;
+                    case 'Q':
+                        sommaDeiDispari += 6;
+                        break;
+                    case 'R':
+                        sommaDeiDispari += 8;
+                        break;
+                    case 'S':
+                        sommaDeiDispari += 12;
+                        break;
+                    case 'T':
+                        sommaDeiDispari += 14;
+                        break;
+                    case 'U':
+                        sommaDeiDispari += 16;
+                        break;
+                    case 'V':
+                        sommaDeiDispari += 10;
+                        break;
+                    case 'W':
+                        sommaDeiDispari += 22;
+                        break;
+                    case 'X':
+                        sommaDeiDispari += 25;
+                        break;
+                    case 'Y':
+                        sommaDeiDispari += 24;
+                        break;
+                    case 'Z':
+                        sommaDeiDispari += 23;
+                        break;
+                }
+            }
+
+
+
+            int sommaDeiPari= 0;
+            for (int i=1; i<radice.length(); i+=2) {
+                switch (radice.charAt(i)) {
                     case '0':
                         sommaDeiPari += 0;
                         break;
@@ -627,17 +946,17 @@
                     codiceFiscale.append("Z");
                     break;
 
-            }
+            }*/
 
             String Codice = new String(codiceFiscale);
-            ArrayList<String> Lista_Codici = new ArrayList<String>();
+            ArrayList<String> lista_Codici = new ArrayList<String>();
             try {
-                Lista_Codici = LettoreXML.leggiCodiciFiscali();
+                lista_Codici = LettoreXML.leggiCodiciFiscali();
             } catch (XMLStreamException e) {
                 e.printStackTrace();
             }
-            for (int i=0; i<Lista_Codici.size(); i++) {
-                if (Codice.equals(Lista_Codici.get(i))) {
+            for (int i=0; i<lista_Codici.size(); i++) {
+                if (Codice.equals(lista_Codici.get(i))) {
                     return new String(codiceFiscale);
                 }
             }
@@ -646,15 +965,41 @@
 
 
         //FUNZIONE CHE RICEVUTO UN CODICE FISCALE NE VERIFICA LA VALIDITA'
-        public static String VerificaCodice(String Codice){
+        public boolean VerificaCodice(String CodiceFiscale){
+            StringBuffer Codice = new StringBuffer(CodiceFiscale);
+            for (int i=0; i<CodiceFiscale.length(); i++){
+                //controlla se le lettere sono in posizioni sbagliate
+                if (!(Codice.charAt(i) >= 'A' && Codice.charAt(i) <= 'Z' && (i<6 || i==8 || i==11 || i==15)))
+                    return false;
+                if (!(Codice.charAt(i) >= '0' && Codice.charAt(i) <= '9' && ((i>=6 && i<=7) || (i>=9 && i<=10) || (i>=12 && i<=14))))
+                    return false;
+            }
 
-            return "valido";
+            //controlla la data di nascita
+            int giorno = Integer.parseInt(Codice.substring(9, 11));
+            if (Codice.charAt(8) == 'A' || Codice.charAt(8) == 'C' || Codice.charAt(8) == 'E' || Codice.charAt(8) == 'L'
+                    || Codice.charAt(8) == 'M' || Codice.charAt(8) == 'R' || Codice.charAt(8) == 'T') {
+                if (!((giorno >= 1 && giorno <= 31) || (giorno >= 41 && giorno <= 71)))
+                    return false;
+            }
+            else if ((Codice.charAt(8) == 'S' || Codice.charAt(8) == 'D' || Codice.charAt(8) == 'H' || Codice.charAt(8) == 'P')) {
+                if (!((giorno >= 1 && giorno <= 30) || (giorno >= 41 && giorno <= 70)))
+                    return false;
+            }
+            else if (Codice.charAt(8) == 'B'){
+                if (!((giorno >= 1 && giorno <= 28) || (giorno >= 41 && giorno <= 68)))
+                    return false;
+            }
+            else
+                return false;
+
+            //crea il carattere di controllo lo confronta con quello presente nel codice
+            String radice = new String(Codice.substring(0, 15));
+            char carattere_controllo = creaCarattereControllo(radice);
+            if (!(carattere_controllo == Codice.charAt(15)))
+                return false;
+
+            return true;
         }
-
-    /*public ArrayList<Persona> ControllaPresenzaCodici(ArrayList<Persona> Lista_Persone){
-            for (int i=0; i<Lista_Persone.size(); i++)
-                if (Lista_Persone.get(i).getCodice_fiscale().equals())
-            return Lista_Persone;
-    }*/
 
 }
