@@ -21,7 +21,7 @@ public class Output {
 
    public static final String OutputXml ="./codiceFiscale.xml";
 
-   public void stampa( ArrayList<Persona> p , ArrayList<String> codiciSpagliati, ArrayList<String> codiciErrati) {
+   public void stampa( ArrayList<Persona> p,  ArrayList<String> codiciSpaiati ,ArrayList<String> codiciErrati, ArrayList<String> codiciAppaiati) {
 
       XMLOutputFactory xmlof = null;
       XMLStreamWriter xmlw = null;
@@ -68,7 +68,11 @@ public class Output {
 
             // inserimento codice fiscale
             xmlw.writeStartElement("codice_fiscale");
-            xmlw.writeCharacters(p.get(i).getCodice_fiscale());
+            if(codiciAppaiati.contains(p.get(i).getCodice_fiscale())) {
+               xmlw.writeCharacters(p.get(i).getCodice_fiscale());
+            } else {
+               xmlw.writeCharacters("ASSENTE");
+            }
             xmlw.writeEndElement();
 
             xmlw.writeEndElement(); // chiusura di </Persona>
@@ -80,25 +84,27 @@ public class Output {
 
             // inserimento codice
             xmlw.writeStartElement("codice");
-            xmlw.writeCharacters(codiciSpagliati.get(i));
+            xmlw.writeCharacters(codiciErrati.get(i));
             xmlw.writeEndElement();
 
 
-         } xmlw.writeEndElement(); // chiusura di </errati>
+         }
+         xmlw.writeEndElement(); // chiusura di </errati>
 
 
 
-         // STAMPA SPAGLIATI
-          xmlw.writeStartElement("spaliati"); // scrittura del tag autore...
-         for (int i = 0; i < codiciSpagliati.size(); i++) {
+         // STAMPA SPAIATI
+         xmlw.writeStartElement("spaiati"); // scrittura del tag autore...
+         for (int i = 0; i < codiciSpaiati.size(); i++) {
 
             // inserimento codice
             xmlw.writeStartElement("codice");
-            xmlw.writeCharacters(codiciSpagliati.get(i));
+            xmlw.writeCharacters(codiciSpaiati.get(i));
             xmlw.writeEndElement();
 
 
-         }xmlw.writeEndElement(); // chiusura di </codie>
+         }
+         xmlw.writeEndElement(); // chiusura di </codie>
 
 
 

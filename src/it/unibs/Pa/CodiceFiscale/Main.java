@@ -1,10 +1,54 @@
 package it.unibs.Pa.CodiceFiscale;
 
 import javax.xml.stream.XMLStreamException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 
 public class Main {
+	private static void creaListaCodiciErrati(ArrayList<String> lista_codici,
+											  Persona lista_temp, ArrayList<Persona> listaPersone ) {
+	/*for (int i = 0; i< lista_codici.size(); i++){
+		//trasferimento dei codici NON VALIDI nell'apposita List
+		// e rimozione dalla List dei codici per il confronto
+		if (!lista_temp.VerificaCodice(lista_codici.get(i))){
+			lista_codici_errati.add(lista_codici.get(i));
+			lista_codici.remove(i);
+		}
+
+	}*/
+
+	ArrayList<String> lista_codici_errati = new ArrayList<String>();
+	ArrayList<String> listaAppaiati = new ArrayList<String>();
+	ArrayList<String> listaSpaiati = new ArrayList<String>();
+
+	for(String cf : lista_codici) {
+		if (!lista_temp.VerificaCodice(cf)) {
+			lista_codici_errati.add(cf);
+		} else {
+			for (Persona p : listaPersone) {
+				if(p.getCodice_fiscale().equals(cf)) {
+					listaAppaiati.add(cf);
+				}
+			}
+		}
+	}
+
+	for(String cf : lista_codici) {
+		if(!lista_codici_errati.contains(cf) && !listaAppaiati.contains(cf)) {
+			listaSpaiati.add(cf);
+		}
+	}
+
+		Output out = new Output();
+		out.stampa(listaPersone,listaSpaiati, lista_codici_errati, listaAppaiati);
+
+
+
+
+
+
+
+
+	}
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
 	private static void creaCodiciPersone(ArrayList<Persona> lista_persone, ArrayList<String> lista_codici) throws XMLStreamException {
@@ -22,21 +66,19 @@ public class Main {
         //LETTURA FILE XML DEI CODICI E DELLE PERSONE
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
+
 		ArrayList<String> lista_codici = new ArrayList<String>();
 		lista_codici = LettoreXML.leggiCodiciFiscali();
-
-		ArrayList<String> lista_codici_errati = new ArrayList<String>();
-		Persona lista_temp = new Persona();
-		for (int i=0; i<lista_codici.size(); i++){
-			//trasferimento dei codici NON VALIDI nell'apposita List
-			// e rimozione dalla List dei codici per il confronto
-			if (!lista_temp.VerificaCodice(lista_codici.get(i))){
-				lista_codici_errati.add(lista_codici.get(i));
-				lista_codici.remove(i);
-			}
-		}
-
 		creaCodiciPersone(lista_persone, lista_codici);
+			// CREAZIONE PERSONA
+		ArrayList<String> lista_codici_errati = new ArrayList<String>();
+		ArrayList<String> lista_spaiati = new ArrayList<String>();
+		Persona lista_temp = new Persona();
+		creaListaCodiciErrati(lista_codici, lista_temp,lista_persone);
+
+
+
+
 
 		/*Persona lista_temp = new Persona();
 
@@ -45,10 +87,9 @@ public class Main {
 		ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
 		lista_comuni = LettoreXML.leggi_Comune();*/
 
-		Output out = new Output();
-		out.stampa(lista_persone,"fine");
 
 	}
+
 
 
 
