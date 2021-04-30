@@ -971,9 +971,9 @@
             StringBuffer Codice = new StringBuffer(CodiceFiscale);
             for (int i=0; i<CodiceFiscale.length(); i++){
                 //controlla se le lettere sono in posizioni sbagliate
-                if (!(Codice.charAt(i) >= 'A' && Codice.charAt(i) <= 'Z' && (i<6 || i==8 || i==11 || i==15)))
+                if (!(Codice.charAt(i) >= 'A' && Codice.charAt(i) <= 'Z') && (i<6 || i==8 || i==11 || i==15))
                     return false;
-                if (!(Codice.charAt(i) >= '0' && Codice.charAt(i) <= '9' && ((i>=6 && i<=7) || (i>=9 && i<=10) || (i>=12 && i<=14))))
+                if (!(Codice.charAt(i) >= '0' && Codice.charAt(i) <= '9') && ((i>=6 && i<=7) || (i>=9 && i<=10) || (i>=12 && i<=14)))
                     return false;
             }
 

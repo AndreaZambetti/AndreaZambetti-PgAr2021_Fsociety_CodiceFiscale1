@@ -23,27 +23,36 @@ public class Main {
      // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
 
 
+
+
+
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
 		creaCodiciPersone(lista_persone);
 
+		Persona lista_codice = new Persona();
 
 
 		codiceDaLeggere = LettoreXML.leggiCodiciFiscali();
+		int nonCe = 0;
+		int ce = 0;
 		for (int i=0; i<codiceDaLeggere.size(); i++){
-			for( int j =0 ; j< lista_persone.size();j++)
-			if () {
-				System.out.println(" il  codice c'e");
+
+			if (lista_codice.VerificaCodice(codiceDaLeggere.get(i))) {
+
 			}else{
-				System.out.println("non c'è" + i);
+
+
 			}
+
+
 		}
 
 
 
 
-		/*ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
-		lista_comuni = LettoreXML.leggi_Comune();*/
+		ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
+		lista_comuni = LettoreXML.leggi_Comune();
 
 		Output out = new Output();
 		out.stampa(lista_persone,"fine");
