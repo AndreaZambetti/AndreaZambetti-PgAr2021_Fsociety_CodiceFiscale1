@@ -7,15 +7,11 @@ public class Main {
 
 	// CREAZIONE DEL CODICE FISCALE DELLE PERSONE NEL FILE DI INPUT PERSONE
 	private static void creaCodiciPersone(ArrayList<Persona> lista_persone) throws XMLStreamException {
-
-	for ( int i = 0 ; i < lista_persone.size(); i++){
-
-		String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale();
-		lista_persone.get(i).setCodice_fiscale(codiceFiscale);
-
+		for ( int i = 0 ; i < lista_persone.size(); i++){
+			String codiceFiscale = lista_persone.get(i).creaCodiceFiscaleFinale();
+			lista_persone.get(i).setCodice_fiscale(codiceFiscale);
+		}
 	}
-
-}
 
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
@@ -31,30 +27,20 @@ public class Main {
 
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();
 		lista_persone = LettoreXML.leggi_inputPersone();
+		creaCodiciPersone(lista_persone);
 
 
+		/*ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
+		lista_comuni = LettoreXML.leggi_Comune();*/
 
-		ArrayList<Comune> lista_comuni = new ArrayList<Comune>();
-		lista_comuni = LettoreXML.leggi_Comune();
-
-
-		creaCodiciPersone( lista_persone);
-
-
-
-
-			Output out = new Output();
-
-
-
-
-			out.stampa(lista_persone,"fine");
-
-		}
-
-
+		Output out = new Output();
+		out.stampa(lista_persone,"fine");
 
 	}
+
+
+
+}
 
 
 

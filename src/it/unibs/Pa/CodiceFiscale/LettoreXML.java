@@ -126,7 +126,7 @@ public class LettoreXML {
      * @ return codiceFiscale
      */
 
-    public static ArrayList leggiCodiceFiscale() throws XMLStreamException {
+    public static ArrayList leggiCodiciFiscali() throws XMLStreamException {
         ArrayList<String> codiceFiscale = new ArrayList<String>();
         String codice = null;
         XMLInputFactory xmlif = null;

@@ -299,8 +299,9 @@
 
             }
             for (int i=0; i<Lista_Comuni.size(); i++){
-                if (this.comuneNascita.equals(Lista_Comuni.get(i).getNome()))
+                if (this.comuneNascita.equals(Lista_Comuni.get(i).getNome())){
                     return Lista_Comuni.get(i).getCodice();
+                }
             }
             //operazione di default in caso il comune non sia indicato
             return Lista_Comuni.get(0).getCodice();
@@ -314,7 +315,7 @@
 
 
 
-        public String creaCodiceFiscaleFinale(){
+        public String creaCodiceFiscaleFinale() {
 
             StringBuffer codiceFiscale = new StringBuffer();
             codiceFiscale.append(creaParteCognome()+creaParteNome()+creaParteAnnoMese()+creaParteGiornoSesso()+ creaParteComune());
@@ -636,11 +637,25 @@
 
             }
 
-            return new String(codiceFiscale);
+            String Codice = new String(codiceFiscale);
+            ArrayList<String> Lista_Codici = new ArrayList<String>();
+            try {
+                Lista_Codici = LettoreXML.leggiCodiciFiscali();
+            } catch (XMLStreamException e) {
+                e.printStackTrace();
+            }
+            for (int i=0; i<Lista_Codici.size(); i++) {
+                if (Codice.equals(Lista_Codici.get(i))) {
+                    return new String(codiceFiscale);
+                }
+            }
+            return new String ("ASSENTE");
         }
 
+    /*public ArrayList<Persona> ControllaPresenzaCodici(ArrayList<Persona> Lista_Persone){
+            for (int i=0; i<Lista_Persone.size(); i++)
+                if (Lista_Persone.get(i).getCodice_fiscale().equals())
+            return Lista_Persone;
+    }*/
 
-
-
-
-    }
+}
