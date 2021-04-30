@@ -1,5 +1,7 @@
 package it.unibs.Pa.CodiceFiscale;
 
+import org.w3c.dom.ls.LSException;
+
 import javax.xml.stream.XMLStreamException;
 import java.util.ArrayList;
 
@@ -13,6 +15,15 @@ public class Main {
 		}
 	}
 
+	private static ArrayList<Codice> VerificaCodiciValidi() throws XMLStreamException {
+		ArrayList<Codice> Lista_Codici = new ArrayList<Codice>();
+		Lista_Codici = LettoreXML.leggiCodiciFiscali();
+		for (int i=0; i<Lista_Codici.size(); i++){
+			Lista_Codici.get(i).setValido("");
+		}
+		return Lista_Codici;
+	}
+
 	public static void main(String[] args) throws XMLStreamException {
 		// TODO Auto-generated method stub
 
@@ -22,7 +33,6 @@ public class Main {
 
 
      // METODO PER CREARE IL CODICE E INSERIRLO ALL INTERNO DELLA PERSONA
-
 
 
 		ArrayList <Persona> lista_persone = new ArrayList<Persona>();

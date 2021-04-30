@@ -3,6 +3,7 @@
 
 
     import javax.xml.stream.XMLStreamException;
+    import java.io.InvalidObjectException;
     import java.util.ArrayList;
 
     public class Persona {
@@ -287,9 +288,6 @@
 
 
 
-
-
-
         public String creaParteComune(){
             StringBuffer parteComune = new StringBuffer();
             ArrayList<Comune> Lista_Comuni = new ArrayList<Comune>();
@@ -306,12 +304,6 @@
             //operazione di default in caso il comune non sia indicato
             return Lista_Comuni.get(0).getCodice();
         }
-
-
-
-
-
-
 
 
 
@@ -649,7 +641,14 @@
                     return new String(codiceFiscale);
                 }
             }
-            return new String ("ASSENTE");
+            return "ASSENTE";
+        }
+
+
+        //FUNZIONE CHE RICEVUTO UN CODICE FISCALE NE VERIFICA LA VALIDITA'
+        public static String VerificaCodice(String Codice){
+
+            return "valido";
         }
 
     /*public ArrayList<Persona> ControllaPresenzaCodici(ArrayList<Persona> Lista_Persone){
